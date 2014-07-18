@@ -1,0 +1,39 @@
+<?php
+
+
+$s = array(
+		'icon' => 'icon-user'
+		,'name' => '微客服'
+		,'code' => 'mp'
+		,'menu' => array(
+			array(
+				'name' => '视频管理'
+				,'url' => 'admin/video/'
+				)
+			,array(
+				'name' => '素材管理'
+				,'url' => 'admin/mp/articles'
+				)
+			, array(
+				'name' => '关注回复设置'
+				,'url' => 'admin/mp/display_subscribe_reply'
+				)
+			, array(
+				'name' => '默认回复设置'
+				,'url' => 'admin/mp/display_default_reply'
+				)
+			, array(
+				'name' => '自定义回复设置'
+				,'url' => 'admin/mp/display_custom_reply'
+				)
+			, array(
+				'name' => '补充自定义回复'
+				,'url' => 'admin/mp/display_append_reply'
+				)
+			,array(
+					"name"=> "管理关键字",
+					"url"=> "keyword/keyword/index"
+				 )
+			)
+);
+echo json_encode($s);

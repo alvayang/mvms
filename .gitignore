@@ -1,0 +1,17 @@
+.DS_Store
+
+application/cache/*
+!application/cache/index.html
+!application/cache/.htaccess
+
+application/logs/*
+!application/logs/index.html
+!application/logs/.htaccess
+
+.vagrant
+application/views/templates_c/*
+
+Vagrantfile
+application/config/hongmeng/*.php
+ckfinder/userfiles/*
+*.pyc
