@@ -114,7 +114,7 @@ private function sid() {
         $queue = $this->config->item('mq_queue');
         $route = $this->config->item('mq_route');
         send_message($_payload, $conn_args, $exchange, $queue, $route);
-        #redirect(base_url('admin/video/index'));
+        redirect(base_url('admin/video/index'));
     }
 
 

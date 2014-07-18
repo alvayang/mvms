@@ -69,9 +69,9 @@
 {{if $v['sites'] == 0}}
 <a class="btn btn-danger" href="{{$BASE_URL}}admin/video/delsrc/{{$v['id']}}">删除源文件</a>
 <a class="btn btn-danger" href="{{$BASE_URL}}admin/video/del/{{$v['id']}}">删除转换文件</a>
-<a target="_blank" href="{{$BASE_URL}}admin/video/preview/{{$v['id']}}"><span class="badge">P</span></a>
+<a target="_blank" href="{{$BASE_URL}}admin/video/preview/{{$v['id']}}"><span class="badge"><i class="glyphicon glyphicon-film"></i></span></a>
 {{else}}
-<a target="_blank" href="{{$BASE_URL}}admin/video/previewyouku/{{$v['id']}}"><span class="badge">P</span></a>
+<a target="_blank" href="{{$BASE_URL}}admin/video/previewyouku/{{$v['id']}}"><span class="badge"><i class="glyphicon glyphicon-film"></i></span></a>
 {{/if}}
 </td>
 </tr>
