@@ -86,5 +86,5 @@ Micro Video Management System.
 ## 管理员信息
 
     默认的管理员和密码都是admin
-    [Demo](http://video.1in1.cn)
+ [Demo](http://video.1in1.cn)
   
