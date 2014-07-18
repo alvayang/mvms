@@ -154,7 +154,7 @@ class Users extends CI_Controller {
             $this->session->unset_userdata('username');
             $this->session->unset_userdata('privilege');
         } catch(Exception $e){}
-            redirect(base_url() . 'admin/admin/index');
+            redirect(base_url() . 'admin/video/index');
 
     }
 
@@ -167,7 +167,7 @@ class Users extends CI_Controller {
             $this->session->set_userdata('uid', $user['id']);
             $this->session->set_userdata('username', $user['username']);
             $this->session->set_userdata('privilege', $user['privilege']);
-            redirect('/admin/admin/index');
+            redirect('/admin/video/index');
         } else {
             die("登陆失败");
         }

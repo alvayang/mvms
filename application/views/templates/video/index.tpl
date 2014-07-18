@@ -43,7 +43,7 @@
 {{elseif $v['cs_mp4'] == 2}}
 <a href="{{$BASE_URL}}admin/video/reenc/{{$v['mid']}}" class="btn btn-warning">MP4</a>
 {{elseif $v['cs_mp4'] == -1}}
-<a href="" class="btn btn-inverse">MP4</a>
+<a href="" class="btn btn-danger">MP4</a>
 {{else}}
 <a href="{{$BASE_URL}}admin/video/reenc/{{$v['mid']}}" class="btn btn-warning">MP4</a>
 {{/if}}
@@ -54,9 +54,9 @@
 {{elseif $v['cs_m3u8'] == 2}}
 <a href="{{$BASE_URL}}admin/video/reenc/{{$v['uid']}}" class="btn btn-warning">M3U8</a>
 {{elseif $v['cs_m3u8'] == -1}}
-<a href="" class="btn btn-inverse">M3U8</a>
+<a href="" class="btn btn-danger">M3U8</a>
 {{else}}
-<a href="" class="btn btn-inverse">M3U8</a>
+<a href="" class="btn btn-danger">M3U8</a>
 {{/if}}
 {{else}}
 站外视频
