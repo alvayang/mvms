@@ -81,23 +81,29 @@
 </div>
 
 
-<div class="modal hide fade" id="editform">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-<h3>添加优酷视频</h3>
-</div>
-<div class="modal-body">
+<div class="modal fade" id="editform">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4>添加优酷视频</h4>
+      </div>
+      <div class="modal-body">
 <form action="{{$BASE_URL}}admin/video/addoutside" method="post">
 <p>请输入优酷链接</p>
-<p><input type="text" placeholder="视频名称" name="name" /></p>
-<p><input type="text" placeholder="链接地址" name="conds" /></p>
+<p><input type="text" class="form-control" placeholder="视频名称" name="name" /></p>
+<p><input type="text" class="form-control" placeholder="链接地址" name="conds" /></p>
 <p><input type="submit" value="提交" /></p>
 </form>
-</div>
-<div class="modal-footer">
-<a href="#" class="btn">关闭</a>
-</div>
-</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script languange="javascript">
 var __BASEURL = "{{$BASE_URL}}";
 $(document).ready(function(){
@@ -110,7 +116,9 @@ $(document).ready(function(){
             $(item).click(function(){
                 var _id = $(this).data('id');
                 $('#uid').val(_id);
-                $('#editform').modal();
+                $('#editform').modal(
+
+);
 
                 });
             });
