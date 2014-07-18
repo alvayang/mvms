@@ -100,7 +100,6 @@ private function sid() {
         if($eid == 0)die("参数错误");
         $row = $this->resources->get_encoded_video_byid($eid);
         $this->resources->mark_video_status($eid, 0);
-        print_r($row);
         $hash = explode(".", basename($row['out_slice_location']))[0];
         $type = ($row['out_type'] == 0) ? 'mp4' : 'm3u8';
         $_payload = json_encode(array('eid' => $row['eid'], 'vid' => $row['vid'], 'type' => $type, 'demision' => $row['out_dimension'], 'src' => $row['resource_src'], "hash" => $hash, 'api' => base_url('api/videos'), 'dest' => BASEPATH . "/../". $row['out_slice_location']));
@@ -111,7 +110,6 @@ private function sid() {
             'password' => $this->config->item('mq_password'),
             'vhost'=> $this->config->item('mq_vhost')
         );
-        echo $_payload;
         $exchange = $this->config->item('mq_exchange');
         $queue = $this->config->item('mq_queue');
         $route = $this->config->item('mq_route');
@@ -126,7 +124,6 @@ private function sid() {
         foreach($videos as $v){
             array_push($vids, md5($v['resource_src']));
         }
-        print_r($vids);
         $conf_dir = $this->config->item("videodir");
         $it = new DirectoryIterator($conf_dir);
         foreach($it as $file) {
