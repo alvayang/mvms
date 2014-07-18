@@ -66,9 +66,6 @@ class Resource_model extends CI_Model {
     }
 
 
-    public function update_detail_by_id($id, $key, $val){
-    }
-
     public function get_video_status($eid){
         $this->db->trans_start();
         $sql = "SELECT * FROM " . self::$detail_table . " WHERE id=" . $eid . " FOR UPDATE";
@@ -88,6 +85,11 @@ class Resource_model extends CI_Model {
         $this->db->update(self::$detail_table, array('convert_status' => $status));
         log_message('debug', $this->db->last_query());
     }
+
+    public function get_encoded_video_byvid($id){
+        //return $this->db->get_where(self::$detail_table, array('vid', $id))->result_array();
+    }
+
     public function get_encoded_video_byid($id){
         $this->db->select(self::$resource_table . ".*, " . self::$detail_table . ".*, " . self::$detail_table . ".id as eid");
         $this->db->where(self::$detail_table. '.id', $id);
@@ -107,4 +109,15 @@ class Resource_model extends CI_Model {
         return $this->db->get(self::$resource_table)->result_array();
     }
 
+    public function delete_resource_by_id($id){
+        $this->db->trans_start();
+        $this->db->where('vid', $id);
+        $this->db->delete(self::$detail_table);
+
+        $this->db->where('id', $id);
+        $this->db->delete(self::$resource_table);
+
+        $this->db->trans_complete();
+        log_message('debug', $this->db->last_query());
+    }
 }

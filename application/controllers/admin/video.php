@@ -11,17 +11,17 @@ class Video extends CI_Controller{
     }
 
 
-private function getkey($key1,$key2){
-    $a = hexdec($key1);
-    $b = $a ^ 0xA55AA5A5;
-    $b = dechex($b);
-    return $key2.$b;
-}
+    private function getkey($key1,$key2){
+        $a = hexdec($key1);
+        $b = $a ^ 0xA55AA5A5;
+        $b = dechex($b);
+        return $key2.$b;
+    }
 
-private function sid() {
-    $sid = time().(rand(0,9000)+10000);
-    return $sid;
-}
+    private function sid() {
+        $sid = time().(rand(0,9000)+10000);
+        return $sid;
+    }
     public function addoutside(){
         $name = $this->input->post('name');;
         $url = $this->input->post('conds');;
@@ -41,18 +41,16 @@ private function sid() {
             $this->resources->create_resource(Resource_model::TYPE_VIDEO, $name, $link, 0, '站外', 1);
             redirect(base_url('admin/video/index'));
         }
-        //echo $name;
-        //echo $url;
     }
 
-    public function previewyouku($id = 0){
-            if($id == 0) die("参数错误");
-            $info = $this->resources->get_resouce_by_id($id);
-            $src = $info['resource_src'];
-            $this->smarty->assign('title', '视频预览');
-            $this->smarty->assign('videos', $src);
-            $this->smarty->assign('mainpage', 'video/preview.tpl');
-            $this->smarty->display('main.tpl');
+    public function previewm3u8($id = 0){
+        if($id == 0) die("参数错误");
+        $info = $this->resources->get_resouce_by_id($id);
+        $src = $info['resource_src'];
+        $this->smarty->assign('title', '视频预览');
+        $this->smarty->assign('videos', $src);
+        $this->smarty->assign('mainpage', 'video/preview.tpl');
+        $this->smarty->display('main.tpl');
     }
 
     public function preview($eid = 0){
@@ -79,6 +77,10 @@ private function sid() {
     public function index(){
         $videos = $this->resources->get_all_videos();
         foreach($videos as &$v){
+            $v['src_exists'] = 0;
+            if(file_exists($v['resource_src'])){
+                $v['src_exists'] = 1;
+            }
             $vs = $this->resources->get_encoded_video($v['id']);
             foreach($vs as $vvs){
                 if($vvs['out_type'] == 0){
@@ -219,15 +221,10 @@ private function sid() {
             $this->flog('创建目录失败');
             die("系统目录创建失败");//$this->return_text('信息采集失败，请稍后尝试!', $nodes['ToUserName'], $nodes['FromUserName']);
         }
-        //$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=$token&media_id=$media";
-        // mp4.
         $relate = $dir_ready['rel'];
         $abs = $dir_ready['abs'];
         $hash = md5($media);
         $src = $abs . "/src_" . $hash . ".mp4";
-        //$buf = file_get_contents($url);
-        //$buf = 
-        //file_put_contents($src, $buf);
         if($_FILES['fileToUpload']['error'] > 0){
             die("上传错误");
         }
@@ -257,10 +254,28 @@ private function sid() {
             send_message($_payload, $conn_args, $exchange, $queue, $route);
             // 保存起来
             die("上传成功，开始转码啦");
-            //return $this->return_text('您的信息已经采集到啦,请通过两条信息分别回复 "选手 ' . $rid . ' 您的名字"和"视频 ' . $rid . ' 作品名称"!', $nodes['ToUserName'], $nodes['FromUserName']);
         } else {
             die("上传失败");
-            //return $this->return_text('信息采集失败，请稍后尝试!', $nodes['ToUserName'], $nodes['FromUserName']);
         }
+    }
+
+    public function delsrc($id = 0){
+        if($id == 0) die("参数错误");
+        $info = $this->resources->get_resouce_by_id($id);
+        if(!unlink($info['resource_src'])){
+            die("删除失败");
+        } else {
+            redirect(base_url('admin/video/index'));
+        }
+    }
+
+    public function delvideo($id = 0){
+        if($id == 0) die("参数错误");
+        $videos = $this->resources->get_encoded_video($id);
+        foreach($videos as $v){
+            print_r($videos);
+        }
+        $this->resources->delete_resource_by_id($id);
+        redirect(base_url('admin/video/index'));
     }
 }

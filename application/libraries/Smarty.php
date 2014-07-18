@@ -19,6 +19,7 @@ class CI_Smarty extends Smarty {
 		parent::Smarty();
 		$this->compile_dir = APPPATH . "views/templates_c";
 		$this->template_dir = APPPATH . "views/templates";
+		$this->debugging = False;
 		$this->assign('APPPATH', APPPATH);
 		$this->assign('BASEPATH', BASEPATH);
 
@@ -30,7 +31,7 @@ class CI_Smarty extends Smarty {
 		parent::__construct();
 		require_once(APPPATH . "language/cn/cn_lang.php");
 		$this->compile_dir = APPPATH . "views/templates_c";
-		//$this->debugging = True;
+		$this->debugging = False;
 		$this->template_dir = APPPATH . "views/templates";
 		$this->assign('APPPATH', APPPATH);
 		$this->assign('BASEPATH', BASEPATH);
@@ -46,7 +47,7 @@ class CI_Smarty extends Smarty {
 			$this->assign('RES_PREFIX', base_url(). "static/");
 		}
 
-		//log_message('debug', "Smarty Class Initialized");
+		log_message('debug', "Smarty Class Initialized");
 	}
 
 

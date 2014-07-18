@@ -67,12 +67,14 @@
 <td width="36%">
 
 {{if $v['sites'] == 0}}
+{{if $v['src_exists'] == 1}}
 <a class="btn btn-danger" href="{{$BASE_URL}}admin/video/delsrc/{{$v['id']}}">删除源文件</a>
-<a class="btn btn-danger" href="{{$BASE_URL}}admin/video/del/{{$v['id']}}">删除转换文件</a>
+{{/if}}
 <a target="_blank" href="{{$BASE_URL}}admin/video/preview/{{$v['id']}}"><span class="badge"><i class="glyphicon glyphicon-film"></i></span></a>
 {{else}}
-<a target="_blank" href="{{$BASE_URL}}admin/video/previewyouku/{{$v['id']}}"><span class="badge"><i class="glyphicon glyphicon-film"></i></span></a>
+<a target="_blank" href="{{$BASE_URL}}admin/video/previewm3u8/{{$v['id']}}"><span class="badge"><i class="glyphicon glyphicon-film"></i></span></a>
 {{/if}}
+<a class="del" data-id="{{$v['id']}}"  href="#"><i class="glyphicon glyphicon-trash"></i></a>
 </td>
 </tr>
 {{/foreach}}
@@ -122,5 +124,13 @@ $(document).ready(function(){
 
                 });
             });
+        $('.del').each(function(idx, item){
+            $(item).click(function(){
+                if(confirm('真的要删除?')){
+                var _id = $(this).data('id');
+                location.href= __BASEURL + 'admin/video/delvideo/' + _id;
+                }
+                });
+});
 });
 </script>
