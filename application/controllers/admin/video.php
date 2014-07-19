@@ -53,12 +53,13 @@ class Video extends CI_Controller{
         $qr_path = $args['abs'] . "/" . $vid . ".png";
         if(!file_exists($qr_path)){
             require_once(APPPATH . 'third_party/phpqrcode/qrlib.php');
-            QRcode::png(base_url($src), $qr_path, 'L', 4, 2);
+            QRcode::png($src, $qr_path, 'L', 4, 2);
         }
 
         $this->smarty->assign('title', '视频预览');
         $this->smarty->assign('videos', $src);
         $this->smarty->assign('qr', base_url('static/users_data' . $args['rel'] . $vid . ".png"));
+        $this->smarty->assign('aqr', base_url('static/users_data' . $args['rel'] . $vid . ".png"));
         $this->smarty->assign('mainpage', 'video/preview.tpl');
         $this->smarty->display('main.tpl');
     }
@@ -68,24 +69,34 @@ class Video extends CI_Controller{
 
         $info = $this->resources->get_encoded_video($eid);
         $src = 0;
+        $qr_src = '';
         foreach($info as $i){
             if($i['out_type'] == 0){
                 $src = base_url($i['out_slice_location']);
-                break;
+            } else {
+                $qr_src = base_url($i['out_slice_location']);
             }
         }
         if(!$src){
             die("参数错误");
         }
-        $vid = md5($src);
+        // ios qr
+        $vid = md5($qr_src);
         $args = $this->_generate_dir($vid);
-        $qr_path = $args['abs'] . "/" . $vid . ".png";
-        if(!file_exists($qr_path)){
-            require_once(APPPATH . 'third_party/phpqrcode/qrlib.php');
-            QRcode::png(base_url($src), $qr_path, 'L', 4, 2);
-        }
-        $this->smarty->assign('qr', base_url('static/users_data' . $args['rel'] . $vid . ".png"));
+        $oqr_path = $args['abs'] . "/" . $vid . "o.png";
+        $aqr_path = $args['abs'] . "/" . $vid . "a.png";
 
+        if(!file_exists($aqr_path)){
+            require_once(APPPATH . 'third_party/phpqrcode/qrlib.php');
+            QRcode::png($src, $aqr_path, 'L', 4, 2);
+        }
+        if(!file_exists($oqr_path)){
+            require_once(APPPATH . 'third_party/phpqrcode/qrlib.php');
+            QRcode::png($qr_src, $oqr_path, 'L', 4, 2);
+        }
+
+        $this->smarty->assign('aqr', base_url('static/users_data' . $args['rel'] . $vid . "a.png"));
+        $this->smarty->assign('qr', base_url('static/users_data' . $args['rel'] . $vid . "o.png"));
         $this->smarty->assign('title', '视频预览');
         $this->smarty->assign('videos', $src);
         $this->smarty->assign('mainpage', 'video/preview.tpl');

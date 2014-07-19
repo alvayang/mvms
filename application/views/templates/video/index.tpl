@@ -82,6 +82,29 @@
 </table>
 </div>
 
+<!--
+<div class="panel panel-info">
+  <div class="panel-heading">转换进度</div>
+  <div class="panel-body">
+
+    <span> Mp4转换进度</span>
+  <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+  60%
+  </div>
+  </div>
+
+    <span> M3U8转换进度</span>
+  <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+  60%
+  </div>
+  </div>
+
+
+  </div>
+</div>
+-->
 
 <div class="modal fade" id="editform">
   <div class="modal-dialog">
