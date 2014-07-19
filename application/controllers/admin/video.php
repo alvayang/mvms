@@ -47,8 +47,18 @@ class Video extends CI_Controller{
         if($id == 0) die("参数错误");
         $info = $this->resources->get_resouce_by_id($id);
         $src = $info['resource_src'];
+
+        $vid = md5($src);
+        $args = $this->_generate_dir($vid);
+        $qr_path = $args['abs'] . "/" . $vid . ".png";
+        if(!file_exists($qr_path)){
+            require_once(APPPATH . 'third_party/phpqrcode/qrlib.php');
+            QRcode::png(base_url($src), $qr_path, 'L', 4, 2);
+        }
+
         $this->smarty->assign('title', '视频预览');
         $this->smarty->assign('videos', $src);
+        $this->smarty->assign('qr', base_url('static/users_data' . $args['rel'] . $vid . ".png"));
         $this->smarty->assign('mainpage', 'video/preview.tpl');
         $this->smarty->display('main.tpl');
     }
@@ -67,6 +77,14 @@ class Video extends CI_Controller{
         if(!$src){
             die("参数错误");
         }
+        $vid = md5($src);
+        $args = $this->_generate_dir($vid);
+        $qr_path = $args['abs'] . "/" . $vid . ".png";
+        if(!file_exists($qr_path)){
+            require_once(APPPATH . 'third_party/phpqrcode/qrlib.php');
+            QRcode::png(base_url($src), $qr_path, 'L', 4, 2);
+        }
+        $this->smarty->assign('qr', base_url('static/users_data' . $args['rel'] . $vid . ".png"));
 
         $this->smarty->assign('title', '视频预览');
         $this->smarty->assign('videos', $src);

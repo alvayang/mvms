@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "admin/video/";
+$route['default_controller'] = "admin/users";
 $route['404_override'] = '';
 
 
